@@ -1,0 +1,38 @@
+body{
+    background-color: black;
+}
+ *{
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
+
+ input{
+    width: 20rem;
+    height: 2rem;
+    border-radius: 2rem;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+    color: black;
+ }
+
+ /* #task{
+    height: 8rem;
+ } */
+
+ div{
+    display: flex;
+    flex-direction: column;
+ }
+ button{
+    width: fit-content;
+ }
+
+ .inpdiv{
+   align-items: flex-start;
+ }
+
+ .wrapper{
+    padding-left: 20vw;
+    padding-right: 20vw;
+    padding-top: 10vh;
+ }
