@@ -28,26 +28,23 @@ function convertMarkdownToHTML(markdown) {
   // Replace blockquotes
   markdown = markdown.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
 
-  // Handle lists (bullet and numbered)
-  const bulletListItems = markdown.match(/^\* (.*)/gm);
-  if (bulletListItems) {
-      const listHTML = bulletListItems.map(item => `<li>${item.replace(/^\* /, '')}</li>`).join('');
-      markdown = markdown.replace(/^\* .*$/gm, ''); // Remove original bullet points
-      markdown += `<ul>${listHTML}</ul>`; // Append the list
-  }
+  // Handle bullet lists
+  markdown = markdown.replace(/^\* (.*)$/gm, '<li>$1</li>');
+  markdown = markdown.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>'); // Wrap <li> in <ul>
 
-  const numberedListItems = markdown.match(/^\d+\. (.*)/gm);
-  if (numberedListItems) {
-      const olHTML = numberedListItems.map(item => `<li>${item.replace(/^\d+\. /, '')}</li>`).join('');
-      markdown = markdown.replace(/^\d+\. .*$/gm, ''); // Remove original numbered points
-      markdown += `<ol>${olHTML}</ol>`; // Append the ordered list
-  }
+  // Handle numbered lists
+  markdown = markdown.replace(/^\d+\. (.*)$/gm, '<li>$1</li>');
+  markdown = markdown.replace(/(<li>.*<\/li>)/g, '<ol>$1</ol>'); // Wrap <li> in <ol>
 
   // Replace inline code
   markdown = markdown.replace(/`([^`]+)`/g, '<code>$1</code>');
 
+  // Replace new lines with <br> tags
+  markdown = markdown.replace(/\n/g, '<br>');
+
   return markdown;
 }
+
 
 async function main() {
 
@@ -66,7 +63,7 @@ async function main() {
         let response = document.querySelector('#response');
         console.log(newContent);
         
-        response.innerHTML = convertMarkdownToHTML(chunk);
+        response.innerHTML = convertMarkdownToHTML(chunk) ;
 
       }
     }
